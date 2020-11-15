@@ -6,9 +6,11 @@ use Livewire\Component;
 class HelloWorld extends Component
 {
     public $name = 'Jelly';
-    public $loud = false;
-    public $greeting = ['Hello'];
 
+    public function updatedName($name)
+    {
+        $this->name = strtoupper($name);
+    }
     public function render()
     {
         return view('livewire.hello-world');
