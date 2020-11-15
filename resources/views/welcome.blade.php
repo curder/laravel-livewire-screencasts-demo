@@ -9,7 +9,7 @@
     @livewireStyles
 </head>
 <body>
-    Hello world!
+    @livewire('hello-world')
 
     @livewireScripts
 </body>
