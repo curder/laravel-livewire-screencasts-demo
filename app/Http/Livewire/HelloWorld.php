@@ -1,16 +1,27 @@
 <?php
 namespace App\Http\Livewire;
 
+use App\Models\Contact;
 use Livewire\Component;
 
 class HelloWorld extends Component
 {
-    public $name = 'Jelly';
+    public $contacts;
 
-    public function updatedName($name)
+    public $listeners = [
+        'refreshSelfAndParent' => '$refresh',
+    ];
+
+    public function refreshChildren() : void
     {
-        $this->name = strtoupper($name);
+        $this->emit('refreshChildren');
     }
+
+    public function mount()
+    {
+        $this->contacts = Contact::all();
+    }
+
     public function render()
     {
         return view('livewire.hello-world');
