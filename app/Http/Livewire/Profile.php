@@ -6,8 +6,25 @@ use Livewire\Component;
 
 class Profile extends Component
 {
+    public $name;
+    public $about;
+
+    public function save()
+    {
+        $this->validate([
+            'name' => 'max:24',
+            'about' => 'max:120',
+        ]);
+
+        auth()->user()->update([
+            'name' => $this->name,
+            'about' => $this->about,
+        ]);
+    }
+
     public function render()
     {
-        return view('livewire.profile')->extends('layouts.app');
+        return view('livewire.profile')
+            ->extends('layouts.app');
     }
 }
