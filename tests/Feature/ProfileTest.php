@@ -105,8 +105,7 @@ class ProfileTest extends TestCase
                 ->test(Profile::class)
                 ->set('name', 'foo')
                 ->set('about', 'bar')
-                ->assertDontSee('Profile Saved!')
                 ->call('save')
-                ->assertSee('Profile Saved!');
+                ->assertDispatchedBrowserEvent('notify');
     }
 }

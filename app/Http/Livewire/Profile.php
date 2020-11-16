@@ -8,7 +8,6 @@ class Profile extends Component
 {
     public $name;
     public $about;
-    public $saved = false;
 
     public function mount()
     {
@@ -28,7 +27,7 @@ class Profile extends Component
             'about' => $this->about,
         ]);
 
-        $this->saved = true;
+        $this->dispatchBrowserEvent('notify', 'Profile Saved!');
     }
 
     public function render()
