@@ -16,7 +16,6 @@ class Login extends Component
             'password' => 'required|min:6',
         ]);
 
-
         if (!auth()->attempt($credentials)) {
             $this->addError('email', trans('auth.failed'));
 
