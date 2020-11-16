@@ -43,6 +43,21 @@ class ProfileTest extends TestCase
     }
 
     /** @test */
+    public function profile_info_is_pre_populated()
+    {
+        $user = User::factory()->create([
+            'name' => 'foo',
+            'about' => 'bar',
+        ]);
+
+        Livewire::actingAs($user)
+                ->test(Profile::class)
+                ->assertSet('name', 'foo')
+                ->assertSet('about', 'bar');
+    }
+
+
+    /** @test */
     public function user_name_must_be_less_then_24_characters()
     {
         $user = User::factory()->create();

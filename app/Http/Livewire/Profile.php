@@ -9,6 +9,12 @@ class Profile extends Component
     public $name;
     public $about;
 
+    public function mount()
+    {
+        $this->name = auth()->user()->name;
+        $this->about = auth()->user()->about;
+    }
+
     public function save()
     {
         $this->validate([
