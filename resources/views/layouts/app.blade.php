@@ -9,8 +9,7 @@
     @livewireStyles
 </head>
 <body>
-    @livewire('hello-world')
-
-    @livewireScripts
+{{ $slot }}
+@livewireScripts
 </body>
 </html>
