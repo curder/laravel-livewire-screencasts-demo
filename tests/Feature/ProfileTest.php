@@ -96,4 +96,17 @@ class ProfileTest extends TestCase
                 ->call('save')
                 ->assertHasErrors(['about' => 'max']);
     }
+
+    /** @test */
+    public function message_is_shown_on_save()
+    {
+        $user = User::factory()->create();
+        Livewire::actingAs($user)
+                ->test(Profile::class)
+                ->set('name', 'foo')
+                ->set('about', 'bar')
+                ->assertDontSee('Profile Saved!')
+                ->call('save')
+                ->assertSee('Profile Saved!');
+    }
 }

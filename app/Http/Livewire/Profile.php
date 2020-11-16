@@ -8,6 +8,7 @@ class Profile extends Component
 {
     public $name;
     public $about;
+    public $saved = false;
 
     public function mount()
     {
@@ -26,6 +27,8 @@ class Profile extends Component
             'name' => $this->name,
             'about' => $this->about,
         ]);
+
+        $this->saved = true;
     }
 
     public function render()
