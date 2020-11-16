@@ -67,6 +67,22 @@ class RegisterTest extends TestCase
     }
 
     /** @test */
+    public function see_name_hasnt_already_been_token_validation_message_as_user_types()
+    {
+        User::factory()->create([
+            'name' => 'user-name',
+            'email' => 'email@email.com',
+            'password' => 'secret'
+        ]);
+
+        Livewire::test(Register::class)
+                ->set('name', 'username')
+                ->assertHasNoErrors()
+                ->set('name', 'user-name')
+                ->assertHasErrors(['name' => 'unique']);
+    }
+
+    /** @test */
     public function email_is_required()
     {
         Livewire::test(Register::class)
@@ -105,6 +121,22 @@ class RegisterTest extends TestCase
                 ->set('passwordConformation', 'secret')
                 ->call('register')
                 ->assertHasErrors(['email' => 'unique']);
+    }
+
+    /** @test */
+    public function see_email_hasnt_already_been_token_validation_message_as_user_types()
+    {
+        User::factory()->create([
+            'name' => 'user-name',
+            'email' => 'email@email.com',
+            'password' => 'secret'
+        ]);
+
+        Livewire::test(Register::class)
+                ->set('email', 'emai@email.com')
+                ->assertHasNoErrors()
+            ->set('email', 'email@email.com')
+            ->assertHasErrors(['email' => 'unique']);
     }
 
     /** @test */
