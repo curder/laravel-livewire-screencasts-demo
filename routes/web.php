@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', \App\Http\Livewire\HelloWorld::class);
 
 Route::get('register', \App\Http\Livewire\Auth\Register::class);
+
+Route::get('dashboard', function () {
+    return ['message' => 'success'];
+})->name('dashboard');
