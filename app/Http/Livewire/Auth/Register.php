@@ -30,12 +30,13 @@ class Register extends Component
            'passwordConformation' => 'required|min:6'
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ]);
 
+        auth()->login($user);
         // $this->reset();
         return redirect(route('dashboard'));
     }
