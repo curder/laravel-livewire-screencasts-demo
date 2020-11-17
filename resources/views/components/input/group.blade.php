@@ -15,6 +15,6 @@
 
         @isset($helpText)<p class="mt-2 text-sm text-gray-500">{{ $helpText }}</p>@endif
 
-        @if($error)<p class="mt-2 text-sm text-red-500">{{ $error }}</p>@endif
+        @isset($error)<p class="mt-2 text-sm text-red-500">{{ $error }}</p>@endif
     </div>
 </div>
