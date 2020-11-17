@@ -4,18 +4,19 @@
     <form wire:submit.prevent="save" method="POST" action="#">
         <div class="mt-6 sm:mt-5 space-y-6">
 
-            <x-input.group label="Count" for="count">
-                <div wire:ignore>
-                    <button type="button" x-data="{ count: 0 }" x-on:click="count++" x-text="count">0</button>
-                </div>
+            <x-input.group label="Username" for="name" :error="$errors->first('name')"
+                           help-text="Write a few sentences about yourself.">
+                <x-input.text wire:model="name" id="name" leading-add-on="workcation.com/"></x-input.text>
             </x-input.group>
 
-            <x-input.group label="Username" for="name" :error="$errors->first('name')" help-text="Write a few sentences about yourself.">
-                <x-input.text wire:model="name" id="name" leading-add-on="workcation.com/" />
+            <x-input.group label="Birthday" for="birthday" :error="$errors->first('birthday')"
+                           help-text="Write a few sentences about yourself.">
+                <x-input.date wire:model="birthday" id="birthday" placeholder="MM/DD/YYYY"></x-input.date>
             </x-input.group>
 
-            <x-input.group label="About" for="about" :error="$errors->first('about')" help-text="Write a few sentences about yourself.">
-                <x-input.textarea wire:model="about" id="about" rows="3" />
+            <x-input.group label="About" for="about" :error="$errors->first('about')"
+                           help-text="Write a few sentences about yourself.">
+                <x-input.textarea wire:model="about" id="about" rows="3"></x-input.textarea>
             </x-input.group>
 
             <x-input.group label="Photo" for="photo" :error="$errors->first('photo')">

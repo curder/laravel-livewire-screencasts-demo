@@ -85,8 +85,8 @@ class ProfileTest extends TestCase
         Livewire::actingAs($user)
                 ->test(Profile::class)
                 ->set('name', 'foo')
-                ->call('save')
                 ->set('about', str_repeat(1, 120))
+                ->call('save')
                 ->assertHasNoErrors();
 
         Livewire::actingAs($user)

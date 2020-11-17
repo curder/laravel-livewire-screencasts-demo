@@ -1,4 +1,7 @@
-@props(['leadingAddOn'])
+@props([
+'leadingAddOn',
+
+])
 
 <div class="max-w-lg flex rounded-md shadow-sm">
     @isset ($leadingAddOn)
