@@ -6,6 +6,8 @@ use App\Http\Livewire\Profile;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -40,6 +42,28 @@ class ProfileTest extends TestCase
 
         $this->assertEquals('foo', $user->name);
         $this->assertEquals('bar', $user->about);
+    }
+
+    /** @test */
+    public function can_upload_avatar()
+    {
+        $user = User::factory()->create();
+
+        Storage::fake('avatars');
+
+        $file = UploadedFile::fake()->image('avatar.jpg');
+
+        Livewire::actingAs($user)
+                ->test(Profile::class)
+                ->set('name', 'foo')
+                ->set('about', 'bar')
+                ->set('newAvatar', $file)
+                ->call('save');
+
+        $user->refresh();
+
+        self::assertNotNull($user->avatar);
+        Storage::disk('avatars')->assertExists($user->avatar);
     }
 
     /** @test */

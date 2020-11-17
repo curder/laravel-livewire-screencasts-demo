@@ -23,7 +23,7 @@ class Profile extends Component
     public function updatedNewAvatar()
     {
         $this->validate([
-            'newAvatar' => 'image|max:10000'
+            'newAvatar' => 'nullable|image|max:1000'
         ]);
     }
 
@@ -33,19 +33,22 @@ class Profile extends Component
             'name' => 'max:24',
             'about' => 'max:120',
             'birthday' => 'sometimes',
-            'newAvatar' => 'sometimes|image|max:10000'
+            'newAvatar' => 'nullable|image|max:1000'
         ]);
-
-        $filename = $this->newAvatar->store('/', 'avatars');
 
         auth()->user()->update([
             'name' => $this->name,
             'about' => $this->about,
             'birthday' => $this->birthday,
-            'avatar' => $filename,
         ]);
 
-//         $this->dispatchBrowserEvent('notify', 'Profile Saved!');
+        if ($this->newAvatar) {
+            auth()->user()->update([
+                'avatar' => $this->newAvatar->store('/', 'avatars'),
+            ]);
+        }
+
+        // $this->dispatchBrowserEvent('notify', 'Profile Saved!');
 
         $this->emitSelf('notify-saved');
         // session()->flash('notify-saved');
