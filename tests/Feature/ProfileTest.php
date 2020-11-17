@@ -106,6 +106,7 @@ class ProfileTest extends TestCase
                 ->set('name', 'foo')
                 ->set('about', 'bar')
                 ->call('save')
-                ->assertDispatchedBrowserEvent('notify');
+                ->assertEmitted('notify-saved');
+                // ->assertDispatchedBrowserEvent('notify');
     }
 }
