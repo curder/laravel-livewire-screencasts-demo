@@ -27,7 +27,10 @@ class Profile extends Component
             'about' => $this->about,
         ]);
 
-        $this->dispatchBrowserEvent('notify', 'Profile Saved!');
+//         $this->dispatchBrowserEvent('notify', 'Profile Saved!');
+
+        $this->emitSelf('notify-saved');
+        // session()->flash('notify-saved');
     }
 
     public function render()
