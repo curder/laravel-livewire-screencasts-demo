@@ -57,7 +57,7 @@
             <div class="flex flex-col w-64 border-r border-gray-200 bg-indigo-800">
                 <div class="h-0 flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
                     <div class="flex items-center flex-shrink-0 px-4">
-                        <img class="h-7 w-auto" src="https://tailwindui.com/img/v1/logo/logo-light.svg" alt="Surge Logo">
+                        <img class="h-7 w-auto" src="https://tailwindui.com/img/logos/v1/workflow-logo-on-brand.svg" alt="Surge Logo">
                     </div>
                     <!-- Sidebar component, swap this element with another sidebar if you like -->
                     <nav class="mt-5 space-y-1 flex-1 px-2 bg-indigo-800">
@@ -74,7 +74,7 @@
                     <a href="/profile" class="flex-shrink-0 w-full group block">
                         <div class="flex items-center">
                             <div>
-                                <img class="inline-block h-9 w-9 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
+                                <img class="inline-block h-9 w-9 rounded-full" src="{{ auth()->user()->avatar_url }}" alt="">
                             </div>
 
                             <div class="ml-3">

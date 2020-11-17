@@ -7,6 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * Class User
+ * @property string name
+ * @property string email
+ * @property string password
+ * @property string birthday
+ * @property string about
+ * @property string avatar_url
+ *
+ * @package App\Models
+ */
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -43,4 +54,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'birthday'          => 'date',
     ];
+
+    /**
+     * @return string
+     */
+    public function getAvatarUrlAttribute(): string
+    {
+        return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
+    }
 }
