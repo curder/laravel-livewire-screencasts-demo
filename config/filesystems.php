@@ -55,7 +55,7 @@ return [
             'visibility' => 'public',
         ],
 
-        'avatar' => [
+        'avatars' => [
             'driver' => 'local',
             'root' => storage_path('app/avatars'),
             'url' => env('APP_URL').'/avatars',
