@@ -15,6 +15,7 @@ use Illuminate\Notifications\Notifiable;
  * @property string birthday
  * @property string about
  * @property string avatar_url
+ * @property string avatar
  *
  * @package App\Models
  */
@@ -33,6 +34,7 @@ class User extends Authenticatable
         'password',
         'birthday',
         'about',
+        'avatar',
     ];
 
     /**
