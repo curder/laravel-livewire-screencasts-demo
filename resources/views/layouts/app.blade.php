@@ -1,5 +1,4 @@
-@extends('layouts.base')
-@section('content')
+<x-layouts.base>
     <div class="h-screen flex overflow-hidden bg-gray-100" x-data="{ sidebarOpen: false }" @keydown.window.escape="sidebarOpen = false">
         <!-- Off-canvas menu for mobile -->
         <div x-show="sidebarOpen" class="md:hidden" style="display: none;">
@@ -103,12 +102,10 @@
 
             <main class="flex-1 relative z-0 overflow-y-auto pt-2 pb-6 focus:outline-none md:py-6" tabindex="0" x-data="" x-init="$el.focus()">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                    @yield('content')
+                    {{ $slot }}
                 </div>
             </main>
         </div>
-
         <x-notification />
-
     </div>
-@overwrite
+</x-layouts.base>
