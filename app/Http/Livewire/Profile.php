@@ -45,8 +45,4 @@ class Profile extends Component
         $this->emitSelf('notify-saved');
         // session()->flash('notify-saved');
     }
-    public function render()
-    {
-        return view('livewire.profile');
-    }
 }
