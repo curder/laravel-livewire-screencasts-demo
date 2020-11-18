@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Http\Livewire;
 
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -9,29 +9,25 @@ class Profile extends Component
 {
     use WithFileUploads;
 
-    public $user;
-    public $name;
-    public $about;
-    public $birthday = null;
-    public $newAvatar;
+    public User $user;
+    public $upload;
 
     protected $rules = [
-        'name' => 'max:24',
-        'about' => 'max:120',
-        'birthday' => 'sometimes',
-        'newAvatar' => 'nullable|image|max:1000'
+        'user.name' => 'max:24',
+        'user.about' => 'max:120',
+        'user.birthday' => 'sometimes',
+        'upload'    => 'nullable|image|max:1000'
     ];
 
     public function mount()
     {
-        $this->name = auth()->user()->name;
-        $this->about = auth()->user()->about;
-        $this->birthday = optional(auth()->user()->birthday)->format('m/d/Y');
+        $this->user = auth()->user();
     }
-    public function updatedNewAvatar()
+
+    public function updatedUpload()
     {
         $this->validate([
-            'newAvatar' => 'nullable|image|max:1000'
+            'upload' => 'nullable|image|max:1000'
         ]);
     }
 
@@ -39,24 +35,16 @@ class Profile extends Component
     {
         $this->validate();
 
-        auth()->user()->update([
-            'name' => $this->name,
-            'about' => $this->about,
-            'birthday' => $this->birthday,
+        $this->user->save();
+
+        $this->upload && $this->user->update([
+            'avatar' => $this->upload->store('/', 'avatars'),
         ]);
 
-        if ($this->newAvatar) {
-            auth()->user()->update([
-                'avatar' => $this->newAvatar->store('/', 'avatars'),
-            ]);
-        }
-
         // $this->dispatchBrowserEvent('notify', 'Profile Saved!');
-
         $this->emitSelf('notify-saved');
         // session()->flash('notify-saved');
     }
-
     public function render()
     {
         return view('livewire.profile');

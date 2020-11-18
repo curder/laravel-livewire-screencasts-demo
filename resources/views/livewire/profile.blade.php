@@ -3,34 +3,34 @@
 
     <form wire:submit.prevent="save" method="POST" action="#">
         <div class="mt-6 sm:mt-5 space-y-6">
-            <x-input.group label="Username" for="name" :error="$errors->first('name')"
+            <x-input.group label="Username" for="name" :error="$errors->first('user.name')"
                            help-text="Write a few sentences about yourself.">
-                <x-input.text wire:model="name" id="name" leading-add-on="workcation.com/"></x-input.text>
+                <x-input.text wire:model="user.name" id="name" leading-add-on="workcation.com/"></x-input.text>
             </x-input.group>
 
-            <x-input.group label="Birthday" for="birthday" :error="$errors->first('birthday')"
+            <x-input.group label="Birthday" for="birthday" :error="$errors->first('user.birthday')"
                            help-text="Write a few sentences about yourself.">
-                <x-input.date wire:model="birthday" id="birthday" placeholder="MM/DD/YYYY"></x-input.date>
+                <x-input.date wire:model="user.birthday" id="birthday" placeholder="MM/DD/YYYY"></x-input.date>
             </x-input.group>
 
-            <x-input.group label="About" for="about" :error="$errors->first('about')"
+            <x-input.group label="About" for="about" :error="$errors->first('user.about')"
                            help-text="Write a few sentences about yourself.">
-                <x-input.trix-text wire:model.lazy="about" :initial-value="$about" id="about"
+                <x-input.trix-text wire:model.lazy="user.about" :initial-value="$user->about" id="about"
                                    rows="3"></x-input.trix-text>
             </x-input.group>
 
-            <x-input.group label="Photo" for="newAvatar" :error="$errors->first('newAvatar')">
+            <x-input.group label="Photo" for="upload" :error="$errors->first('upload')">
 
                  <span class="w-12 rounded-full overflow-hidden bg-gray-100">
-                    @if (!$newAvatar)
+                    @if (!$upload)
                          <img src="{{ auth()->user()->avatar_url }}" alt="Profile Photo">
                      @endif
                 </span>
-                <x-input.filepond wire:model="newAvatar" id="newAvatar"></x-input.filepond>
+                <x-input.filepond wire:model="upload" id="upload"></x-input.filepond>
 
                 {{--                <x-input.file-upload wire:model="newAvatar" id="newAvatar">--}}
                 {{--                    <span class="w-12 rounded-full overflow-hidden bg-gray-100">--}}
-                {{--                        @if ($newAvatar)--}}
+                {{--                        @if ($upload)--}}
                 {{--                            <img src="{{ $this->newAvatar->temporaryUrl() }}" alt="Profile Photo">--}}
                 {{--                        @else--}}
                 {{--                            <img src="{{ auth()->user()->avatar_url }}" alt="Profile Photo">--}}
