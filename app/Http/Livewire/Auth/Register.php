@@ -21,6 +21,13 @@ class Register extends Component
     public $password = '';
     public $passwordConformation = '';
 
+    protected $rules = [
+        'name' => 'required|unique:users',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:6|same:passwordConformation',
+        'passwordConformation' => 'required|min:6'
+    ];
+
     public function updated($field)
     {
         $this->validate([
@@ -31,12 +38,7 @@ class Register extends Component
 
     public function register()
     {
-        $this->validate([
-           'name' => 'required|unique:users',
-           'email' => 'required|email|unique:users',
-           'password' => 'required|min:6|same:passwordConformation',
-           'passwordConformation' => 'required|min:6'
-        ]);
+        $this->validate();
 
         $user = User::create([
             'name' => $this->name,

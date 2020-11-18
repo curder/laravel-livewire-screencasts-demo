@@ -9,10 +9,18 @@ class Profile extends Component
 {
     use WithFileUploads;
 
+    public $user;
     public $name;
     public $about;
     public $birthday = null;
     public $newAvatar;
+
+    protected $rules = [
+        'name' => 'max:24',
+        'about' => 'max:120',
+        'birthday' => 'sometimes',
+        'newAvatar' => 'nullable|image|max:1000'
+    ];
 
     public function mount()
     {
@@ -29,12 +37,7 @@ class Profile extends Component
 
     public function save()
     {
-        $this->validate([
-            'name' => 'max:24',
-            'about' => 'max:120',
-            'birthday' => 'sometimes',
-            'newAvatar' => 'nullable|image|max:1000'
-        ]);
+        $this->validate();
 
         auth()->user()->update([
             'name' => $this->name,
