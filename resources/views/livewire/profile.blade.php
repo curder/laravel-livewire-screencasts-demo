@@ -21,10 +21,17 @@
 
             <x-input.group label="Photo" for="newAvatar" :error="$errors->first('newAvatar')">
                 <div class="flex items-center">
-                    <span class="h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-                        <img src="{{ auth()->user()->avatar_url }}" alt="">
+                    <span class="w-12 rounded-full overflow-hidden bg-gray-100">
+                        @if ($newAvatar)
+                            <img src="{{ $this->newAvatar->temporaryUrl() }}" alt="Profile Photo">
+                        @else
+                            <img src="{{ auth()->user()->avatar_url }}" alt="Profile Photo">
+                        @endif
                     </span>
-                    <input type="file" wire:model="newAvatar"/>
+
+                    <span class="ml-5 rounded-md shadow-sm">
+                        <input type="file" wire:model="newAvatar"/>
+                    </span>
                 </div>
 
                 {{--                <div class="flex items-center">--}}
