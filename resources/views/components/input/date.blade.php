@@ -9,7 +9,7 @@
         </svg>
     </span>
 
-    <input x-ref="input" {{ $attributes }} class="rounded-none rounded-r-md flex-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"/>
+    <input x-ref="input" autocomplete="off" {{ $attributes }} class="rounded-none rounded-r-md flex-1 form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"/>
 </div>
 
 @push('styles')
