@@ -6,7 +6,7 @@
     <!-- Tailwind UI -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tailwindcss/ui@latest/dist/tailwind-ui.min.css">
     <!-- Alpine -->
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/alpinejs/2.7.3/alpine.js"></script>
     @livewireStyles
     @stack('styles')
 </head>

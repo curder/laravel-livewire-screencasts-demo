@@ -18,10 +18,10 @@
 
 @push('styles')
 <!-- Pikaday -->
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+<link href="https://cdn.bootcdn.net/ajax/libs/pikaday/1.8.2/css/pikaday.min.css" rel="stylesheet">
 @endpush
 
 @push('scripts')
-<script src="https://unpkg.com/moment"></script>
-<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/pikaday/1.8.2/pikaday.min.js"></script>
 @endpush
