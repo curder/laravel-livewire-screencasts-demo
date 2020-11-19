@@ -10,7 +10,7 @@
 
             <x-input.group label="Birthday" for="birthday" :error="$errors->first('user.birthday')"
                            help-text="Write a few sentences about yourself.">
-                <x-input.date wire:model="user.birthday" id="birthday" placeholder="MM/DD/YYYY"></x-input.date>
+                <x-input.date wire:model="user.birthday" id="birthday" placeholder="YYYY-MM-DD"></x-input.date>
             </x-input.group>
 
             <x-input.group label="About" for="about" :error="$errors->first('user.about')"
