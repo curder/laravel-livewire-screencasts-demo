@@ -15,7 +15,7 @@
 
             <x-input.group label="About" for="about" :error="$errors->first('user.about')"
                            help-text="Write a few sentences about yourself.">
-                <x-input.trix-text wire:model.lazy="user.about" :initial-value="$user->about" id="about"
+                <x-input.trix-text wire:model.defer="user.about" :initial-value="$user->about" id="about"
                                    rows="3"></x-input.trix-text>
             </x-input.group>
 
