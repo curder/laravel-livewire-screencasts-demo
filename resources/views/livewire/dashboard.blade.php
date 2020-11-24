@@ -12,15 +12,15 @@
         <div class="flex-col space-y-4">
             <x-table>
                 <x-slot name="head">
-                    <x-table.heading>Title</x-table.heading>
-                    <x-table.heading>Amount</x-table.heading>
-                    <x-table.heading>Status</x-table.heading>
-                    <x-table.heading>Date</x-table.heading>
+                    <x-table.heading wire:click="sortBy('title')" sortable :direction="$sortField === 'title' ? $sortDirection: null">Title</x-table.heading>
+                    <x-table.heading wire:click="sortBy('amount')" sortable :direction="$sortField === 'amount' ? $sortDirection: null">Amount</x-table.heading>
+                    <x-table.heading wire:click="sortBy('status')" sortable :direction="$sortField === 'status' ? $sortDirection: null">Status</x-table.heading>
+                    <x-table.heading wire:click="sortBy('date')" sortable :direction="$sortField === 'date' ? $sortDirection: null">Date</x-table.heading>
                 </x-slot>
 
                 <x-slot name="body">
                     @forelse ($transactions as $transaction)
-                        <x-table.row wire:loading.class.delay="opacity-50">
+                        <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{$transaction->id}}">
                             <x-table.cell>
                             <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
                                 <x-icon.cash class="text-cool-gray-400"></x-icon.cash>
