@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <!-- Tailwind UI -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tailwindcss/ui@latest/dist/tailwind-ui.min.css">
-    <!-- Alpine -->
-    <script src="https://cdn.bootcdn.net/ajax/libs/alpinejs/2.7.3/alpine.js"></script>
     @livewireStyles
     @stack('styles')
 </head>
@@ -14,5 +12,7 @@
 {{ $slot }}
 @livewireScripts
 @stack('scripts')
+<!-- Alpine -->
+<script src="https://cdn.bootcdn.net/ajax/libs/alpinejs/2.7.3/alpine.js"></script>
 </body>
 </html>
