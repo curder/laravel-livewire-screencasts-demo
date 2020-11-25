@@ -3,9 +3,13 @@
 
     <div class="py-4 space-y-4">
 
-        <div>
+        <div class="flex justify-between items-center">
             <div class="w-1/4">
                 <x-input.text wire:model="search" placeholder="Search Transactions..."></x-input.text>
+            </div>
+
+            <div>
+                <x-button.primary wire:click="create"><x-icon.plus></x-icon.plus>New</x-button.primary>
             </div>
         </div>
 
@@ -56,7 +60,7 @@
                         </x-table.row>
                     @empty
                         <x-table.row>
-                            <x-table.cell colspan="4">
+                            <x-table.cell colspan="5">
                                 <div class="py-8 flex justify-center items-center">
                                     <x-icon.inbox class="h-8 w-8 text-cool-gray-400"></x-icon.inbox>
                                     <span class="ml-1 font-medium text-cool-gray-400 text-xl">No transaction found...</span>
@@ -77,11 +81,11 @@
             <x-slot name="title">Edit Transaction</x-slot>
             <x-slot name="content">
                 <x-input.group for="title" label="Title" :error="$errors->first('editing.title')">
-                    <x-input.text name="title" id="title" wire:model="editing.title"></x-input.text>
+                    <x-input.text name="title" id="title" wire:model="editing.title" placeholder="Title"></x-input.text>
                 </x-input.group>
 
                 <x-input.group for="amount" label="Amount" :error="$errors->first('editing.amount')">
-                    <x-input.money name="amount" id="amount" wire:model="editing.amount"></x-input.money>
+                    <x-input.money name="amount" id="amount" wire:model="editing.amount" placeholder="Amount"></x-input.money>
                 </x-input.group>
 
                 <x-input.group for="status" label="Status" :error="$errors->first('editing.status')">

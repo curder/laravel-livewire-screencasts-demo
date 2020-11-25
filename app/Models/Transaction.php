@@ -27,6 +27,7 @@ class Transaction extends Model
         'failed' => 'Failed',
     ];
 
+    protected $guarded = [];
     protected $appends = ['date_for_editing'];
     protected $casts = ['date' => 'date'];
 

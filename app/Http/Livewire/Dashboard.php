@@ -32,12 +32,21 @@ class Dashboard extends Component
 
     public function mount() : void
     {
-        $this->editing = Transaction::make();
+        $this->editing = $this->makeBlankTransaction();
+    }
+    public function create()
+    {
+        if ($this->editing->getKey()) { // 处理新增数据临时退出的情况，保留已编辑的字段内容
+            $this->editing = $this->makeBlankTransaction();
+        }
+        $this->showEditModal = true;
     }
 
     public function edit(Transaction $transaction)
     {
-        $this->editing = $transaction;
+        if ($this->editing->isNot($transaction)) { // 处理编辑数据临时退出的情况，保留已编辑的字段内容
+            $this->editing = $transaction;
+        }
 
         $this->showEditModal = !$this->showEditModal;
     }
@@ -58,6 +67,11 @@ class Dashboard extends Component
         $this->sortDirection = $this->sortField === $field ? ($this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc') : 'asc';
 
         $this->sortField     = $field;
+    }
+
+    protected function makeBlankTransaction() : Transaction
+    {
+        return Transaction::make(['date' => now(), 'status' => 'processing']);
     }
 
     /**
