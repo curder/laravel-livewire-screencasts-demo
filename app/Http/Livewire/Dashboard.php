@@ -26,8 +26,14 @@ class Dashboard extends Component
     public bool $selectPage = false;
     public array $selected = [];
     public bool $selectAll = false;
+    public bool $showDeleteModal = false;
     public array $filters = [
-        'search' => '', 'status' => '', 'amount-min' => '', 'amount-max' => '', 'date-min' => '', 'date-max' => '',
+        'search' => '',
+        'status' => '',
+        'amount-min' => '',
+        'amount-max' => '',
+        'date-min' => '',
+        'date-max' => '',
     ];
     protected $queryString = [
         'sortField', 'sortDirection'
@@ -35,8 +41,15 @@ class Dashboard extends Component
     public function rules() : array
     {
         return [
-            'editing.title'            => ['required', 'min:3'], 'editing.amount' => ['required'],
-            'editing.status'           => ['required', Rule::in(collect(Transaction::STATUSES)->keys())],
+            'editing.title'            => [
+                'required',
+                'min:3'
+            ],
+            'editing.amount' => ['required'],
+            'editing.status'           => [
+                'required',
+                Rule::in(collect(Transaction::STATUSES)->keys())
+            ],
             'editing.date_for_editing' => ['required'],
         ];
     }
@@ -59,6 +72,11 @@ class Dashboard extends Component
     public function updatedSelectPage($value) : void
     {
         $this->selected = $value ? $this->transactions->pluck('id')->map(fn($id) => (string) $id)->toArray() : [];
+    }
+    public function updatedSelected() : void
+    {
+        $this->selectAll = false;
+        $this->selectPage = false;
     }
     public function selectAll() : void
     {
@@ -100,18 +118,20 @@ class Dashboard extends Component
     public function exportSelected()
     {
         return response()->streamDownload(function () {
-            echo Transaction::whereKey($this->selected)->toCsv();
+            echo (clone $this->transactionsQuery)->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))->toCsv();
         }, 'transactions.csv');
     }
     public function deleteSelected()
     {
-        $transactions = Transaction::whereKey($this->selected);
-        $transactions->delete();
+        (clone $this->transactionsQuery)
+            ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))->delete();
+
+        $this->showDeleteModal = false;
     }
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Database\Concerns\BuildsQueries|\Illuminate\Database\Eloquent\Builder|mixed
      */
-    public function getTransactionsProperty() : \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    public function getTransactionsQueryProperty()
     {
         return Transaction::query()
                           ->when($this->filters['status'], fn($query, $status) => $query->where('status', $status))
@@ -125,7 +145,11 @@ class Dashboard extends Component
                               fn($query, $date) => $query->where('date', '<=', Carbon::parse($date)))
                           ->when($this->filters['search'],
                               fn($query, $search) => $query->where('title', 'like', '%'.$search.'%'))
-                          ->orderBy($this->sortField, $this->sortDirection)->paginate(10);
+                          ->orderBy($this->sortField, $this->sortDirection);
+    }
+    public function getTransactionsProperty()
+    {
+        return $this->transactionsQuery->paginate(10);
     }
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
@@ -133,7 +157,7 @@ class Dashboard extends Component
     public function render()
     {
         if ($this->selectAll) {
-            $this->selected = $this->transactions->pluck('id')->map(fn($id) => (string) $id)->toArray();
+            $this->selected = $this->transactionsQuery->pluck('id')->map(fn($id) => (string) $id)->toArray();
         }
 
         return view('livewire.dashboard', [

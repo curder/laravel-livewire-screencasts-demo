@@ -20,7 +20,7 @@
                         <x-icon.download class="text-cool-gray-400"></x-icon.download>
                         <span>Export</span>
                     </x-dropdown.item>
-                    <x-dropdown.item type="button" wire:click="deleteSelected" class="flex items-center space-x-2">
+                    <x-dropdown.item type="button" wire:click="$toggle('showDeleteModal', true)" class="flex items-center space-x-2">
                         <x-icon.trash class="text-cool-gray-400"></x-icon.trash>
                         <span>Delete</span>
                     </x-dropdown.item>
@@ -76,7 +76,6 @@
         </div>
 
         <div class="flex-col space-y-4">
-            @json($selected)
             <x-table>
                 <x-slot name="head">
                     <x-table.heading class="pr-0 w-4">
@@ -161,6 +160,21 @@
             </div>
         </div>
     </div>
+    {{-- delete modal--}}
+    <form wire:submit.prevent="deleteSelected">
+        <x-modal.confirmation wire:model.defer="showDeleteModal">
+            <x-slot name="title">Delete Transaction</x-slot>
+            <x-slot name="content">
+                Are you sure you? This action is irreversible.
+            </x-slot>
+            <x-slot name="footer">
+                <x-button.secondary wire:click="$set('showDeleteModal', false)">Cancel</x-button.secondary>
+                <x-button.primary type="submit">Delete</x-button.primary>
+            </x-slot>
+        </x-modal.confirmation>
+    </form>
+
+    {{-- edit modal--}}
     <form wire:submit.prevent="save">
         <x-modal.dialog wire:model.defer="showEditModal">
             <x-slot name="title">Edit Transaction</x-slot>
