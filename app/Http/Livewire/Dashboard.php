@@ -16,6 +16,7 @@ class Dashboard extends Component
     public bool $showEditModal = false;
     public Transaction $editing;
     public bool $showFilters = false;
+    public array $selected = [];
     public array $filters = [
         'search' => '',
         'status' => '',
@@ -85,6 +86,20 @@ class Dashboard extends Component
     protected function makeBlankTransaction() : Transaction
     {
         return Transaction::make(['date' => now(), 'status' => 'processing']);
+    }
+
+    public function exportSelected()
+    {
+        return response()->streamDownload(function () {
+            echo Transaction::whereKey($this->selected)->toCsv();
+        }, 'transactions.csv');
+    }
+
+    public function deleteSelected()
+    {
+        $transactions = Transaction::whereKey($this->selected);
+
+        $transactions->delete();
     }
 
     /**

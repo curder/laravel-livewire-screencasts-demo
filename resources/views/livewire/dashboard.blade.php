@@ -14,6 +14,18 @@
             </div>
 
             <div>
+
+                <x-dropdown label="Bulk Actions">
+                    <x-dropdown.item type="button" wire:click="exportSelected" class="flex items-center space-x-2">
+                        <x-icon.download class="text-cool-gray-400"></x-icon.download>
+                        <span>Export</span>
+                    </x-dropdown.item>
+                    <x-dropdown.item type="button" wire:click="deleteSelected" class="flex items-center space-x-2">
+                        <x-icon.trash class="text-cool-gray-400"></x-icon.trash>
+                        <span>Delete</span>
+                    </x-dropdown.item>
+                </x-dropdown>
+
                 <x-button.primary wire:click="create">
                     <x-icon.plus></x-icon.plus>
                     New
@@ -64,8 +76,12 @@
         </div>
 
         <div class="flex-col space-y-4">
+            @json($selected)
             <x-table>
                 <x-slot name="head">
+                    <x-table.heading class="pr-0 w-4">
+                        <x-input.checkbox></x-input.checkbox>
+                    </x-table.heading>
                     <x-table.heading wire:click="sortBy('title')" sortable
                                      :direction="$sortField === 'title' ? $sortDirection: null">Title
                     </x-table.heading>
@@ -84,6 +100,10 @@
                 <x-slot name="body">
                     @forelse ($transactions as $transaction)
                         <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{$transaction->id}}">
+                            <x-table.cell class="pr-0">
+                                <x-input.checkbox wire:model="selected"
+                                                  value="{{ $transaction->id }}"></x-input.checkbox>
+                            </x-table.cell>
                             <x-table.cell>
                             <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
                                 <x-icon.cash class="text-cool-gray-400"></x-icon.cash>
