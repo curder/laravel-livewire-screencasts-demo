@@ -1,8 +1,9 @@
 <?php
 namespace App\Http\Livewire;
 
-use App\Models\Transaction;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
+use App\Models\Transaction;
 use Livewire\WithPagination;
 
 class Dashboard extends Component
@@ -12,9 +13,42 @@ class Dashboard extends Component
     public string $search = '';
     public string $sortField = 'date';
     public string $sortDirection = 'desc';
+    public bool $showEditModal = false;
+    public Transaction $editing;
+
     protected $queryString = [
         'search', 'sortField', 'sortDirection'
     ];
+
+    public function rules() : array
+    {
+        return [
+            'editing.title' => ['required', 'min:3'],
+            'editing.amount' => ['required'],
+            'editing.status' => ['required', Rule::in(collect(Transaction::STATUS)->keys())],
+            'editing.date_for_editing' => ['required'],
+        ];
+    }
+
+    public function mount() : void
+    {
+        $this->editing = Transaction::make();
+    }
+
+    public function edit(Transaction $transaction)
+    {
+        $this->editing = $transaction;
+
+        $this->showEditModal = !$this->showEditModal;
+    }
+    public function save()
+    {
+        $this->validate();
+
+        $this->editing->save();
+
+        $this->showEditModal = false;
+    }
 
     /**
      * @param  string  $field
@@ -25,6 +59,10 @@ class Dashboard extends Component
 
         $this->sortField     = $field;
     }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function render()
     {
         $transactions = Transaction::search('title', $this->search)
