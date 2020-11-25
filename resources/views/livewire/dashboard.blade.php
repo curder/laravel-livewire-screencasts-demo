@@ -80,7 +80,7 @@
             <x-table>
                 <x-slot name="head">
                     <x-table.heading class="pr-0 w-4">
-                        <x-input.checkbox></x-input.checkbox>
+                        <x-input.checkbox wire:model="selectPage"></x-input.checkbox>
                     </x-table.heading>
                     <x-table.heading wire:click="sortBy('title')" sortable
                                      :direction="$sortField === 'title' ? $sortDirection: null">Title
@@ -98,6 +98,21 @@
                 </x-slot>
 
                 <x-slot name="body">
+                    @if($selectPage)
+                        <x-table.row class="bg-cool-gray-200">
+                            <x-table.cell colspan="6">
+                                @unless ($selectAll)
+                                    You selected <strong>10</strong> transactions, do you want to select all
+                                    <strong>{{ $transactions->total() }}</strong> transactions?
+                                    <x-button.link wire:click="selectAll" class="ml-1 text-blue-600">Select all
+                                    </x-button.link>
+                                @else
+                                    You are currently selecting all <strong>{{ $transactions->total() }}</strong>
+                                    transactions.
+                                @endif
+                            </x-table.cell>
+                        </x-table.row>
+                    @endif
                     @forelse ($transactions as $transaction)
                         <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{$transaction->id}}">
                             <x-table.cell class="pr-0">
@@ -130,7 +145,7 @@
                         </x-table.row>
                     @empty
                         <x-table.row>
-                            <x-table.cell colspan="5">
+                            <x-table.cell colspan="6">
                                 <div class="py-8 flex justify-center items-center">
                                     <x-icon.inbox class="h-8 w-8 text-cool-gray-400"></x-icon.inbox>
                                     <span class="ml-1 font-medium text-cool-gray-400 text-xl">No transaction found...</span>
