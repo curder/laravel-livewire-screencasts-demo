@@ -21,7 +21,7 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    public const STATUS = [
+    public const STATUSES = [
         'success' => 'Success',
         'processing' => 'Processing',
         'failed' => 'Failed',

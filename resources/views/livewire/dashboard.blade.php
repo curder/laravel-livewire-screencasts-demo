@@ -4,13 +4,63 @@
     <div class="py-4 space-y-4">
 
         <div class="flex justify-between items-center">
-            <div class="w-1/4">
-                <x-input.text wire:model="search" placeholder="Search Transactions..."></x-input.text>
+            <div class="flex items-center w-1/2 space-x-2">
+                <x-input.text wire:model="filters.search" placeholder="Search Transactions..."></x-input.text>
+                <div>
+                    <x-button.link wire:click="$toggle('showFilters', true)">@if($showFilters) Hide @endif Advanced
+                        Search
+                    </x-button.link>
+                </div>
             </div>
 
             <div>
-                <x-button.primary wire:click="create"><x-icon.plus></x-icon.plus>New</x-button.primary>
+                <x-button.primary wire:click="create">
+                    <x-icon.plus></x-icon.plus>
+                    New
+                </x-button.primary>
             </div>
+
+        </div>
+
+        <div>
+            @if($showFilters)
+                <div class="bg-cool-gray-200 p-4 rounded shadow-inner flex relative">
+                    <div class="w-1/2 pr-2 space-y-4">
+                        <x-input.group inline for="filter-status" label="Status">
+                            <x-input.select wire:model="filters.status" id="filter-status">
+                                <option value="" disabled>Select Status...</option>
+
+                                @foreach (App\Models\Transaction::STATUSES as $value => $label)
+                                    <option value="{{ $value }}">{{ $label }}</option>
+                                @endforeach
+                            </x-input.select>
+                        </x-input.group>
+
+                        <x-input.group inline for="filter-amount-min" label="Minimum Amount">
+                            <x-input.money wire:model.lazy="filters.amount-min" id="filter-amount-min"></x-input.money>
+                        </x-input.group>
+
+                        <x-input.group inline for="filter-amount-max" label="Maximum Amount">
+                            <x-input.money wire:model.lazy="filters.amount-max" id="filter-amount-max"></x-input.money>
+                        </x-input.group>
+                    </div>
+
+                    <div class="w-1/2 pl-2 space-y-4">
+                        <x-input.group inline for="filter-date-min" label="Minimum Date">
+                            <x-input.date wire:model="filters.date-min" id="filter-date-min"
+                                          placeholder="YYYY-MM-DD"></x-input.date>
+                        </x-input.group>
+
+                        <x-input.group inline for="filter-date-max" label="Maximum Date">
+                            <x-input.date wire:model="filters.date-max" id="filter-date-max"
+                                          placeholder="YYYY-MM-DD"></x-input.date>
+                        </x-input.group>
+
+                        <x-button.link wire:click="resetFilters" class="absolute right-0 bottom-0 p-4">Reset Filters
+                        </x-button.link>
+                    </div>
+                </div>
+            @endif
         </div>
 
         <div class="flex-col space-y-4">
@@ -85,19 +135,21 @@
                 </x-input.group>
 
                 <x-input.group for="amount" label="Amount" :error="$errors->first('editing.amount')">
-                    <x-input.money name="amount" id="amount" wire:model="editing.amount" placeholder="Amount"></x-input.money>
+                    <x-input.money name="amount" id="amount" wire:model="editing.amount"
+                                   placeholder="Amount"></x-input.money>
                 </x-input.group>
 
                 <x-input.group for="status" label="Status" :error="$errors->first('editing.status')">
                     <x-input.select name="status" id="status" wire:model="editing.status">
-                        @foreach(App\Models\Transaction::STATUS as $value => $label)
+                        @foreach(App\Models\Transaction::STATUSES as $value => $label)
                             <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
                     </x-input.select>
                 </x-input.group>
 
                 <x-input.group for="date_for_editing" label="Date" :error="$errors->first('editing.date_for_editing')">
-                    <x-input.date name="date_for_editing" id="date_for_editing" wire:model="editing.date_for_editing"></x-input.date>
+                    <x-input.date name="date_for_editing" id="date_for_editing"
+                                  wire:model="editing.date_for_editing"></x-input.date>
                 </x-input.group>
             </x-slot>
             <x-slot name="footer">
