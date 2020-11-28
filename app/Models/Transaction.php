@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  * @method static make(array $array)
+ * @method static create(array $row)
  */
 class Transaction extends Model
 {

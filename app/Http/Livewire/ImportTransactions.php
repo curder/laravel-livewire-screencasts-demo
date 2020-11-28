@@ -7,6 +7,9 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @method notify(string $string)
+ */
 class ImportTransactions extends Component
 {
     use WithFileUploads;
@@ -45,7 +48,7 @@ class ImportTransactions extends Component
         $this->guessWhichColumnsMapToWhichFields();
     }
 
-    public function import()
+    public function import() : void
     {
         $this->validate();
 
@@ -90,7 +93,7 @@ class ImportTransactions extends Component
         ];
 
         foreach ($this->columns as $column) {
-            $match = collect($guesses)->search(fn($options) => in_array(strtolower($column), $options, true));
+            $match = collect($guesses)->search(fn($options) => in_array(strtolower($column), $options));
 
             if ($match) $this->fieldColumnMap[$match] = $column;
         }
