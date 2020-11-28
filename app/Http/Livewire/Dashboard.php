@@ -39,6 +39,9 @@ class Dashboard extends Component
      * @var string[]
      */
     protected $queryString = [];
+
+    protected $listeners = ['refreshTransactions' => '$refresh'];
+
     public function rules() : array
     {
         return [
