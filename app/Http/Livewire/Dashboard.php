@@ -38,9 +38,7 @@ class Dashboard extends Component
     /**
      * @var string[]
      */
-    protected $queryString = [
-        'sortField', 'sortDirection'
-    ];
+    protected $queryString = [];
     public function rules() : array
     {
         return [

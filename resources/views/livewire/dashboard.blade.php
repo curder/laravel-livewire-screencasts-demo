@@ -81,17 +81,17 @@
                     <x-table.heading class="pr-0 w-4">
                         <x-input.checkbox wire:model="selectPage"></x-input.checkbox>
                     </x-table.heading>
-                    <x-table.heading wire:click="sortBy('title')" sortable
-                                     :direction="$sortField === 'title' ? $sortDirection: null">Title
+                    <x-table.heading wire:click="sortBy('title')" sortable multi-column
+                                     :direction="$sorts['title'] ?? null">Title
                     </x-table.heading>
-                    <x-table.heading wire:click="sortBy('amount')" sortable
-                                     :direction="$sortField === 'amount' ? $sortDirection: null">Amount
+                    <x-table.heading wire:click="sortBy('amount')" sortable multi-column
+                                     :direction="$sorts['amount'] ?? null">Amount
                     </x-table.heading>
-                    <x-table.heading wire:click="sortBy('status')" sortable
-                                     :direction="$sortField === 'status' ? $sortDirection: null">Status
+                    <x-table.heading wire:click="sortBy('status')" sortable multi-column
+                                     :direction="$sorts['status'] ?? null">Status
                     </x-table.heading>
-                    <x-table.heading wire:click="sortBy('date')" sortable
-                                     :direction="$sortField === 'date' ? $sortDirection: null">Date
+                    <x-table.heading wire:click="sortBy('date')" sortable multi-column
+                                     :direction="$sorts['date'] ?? null">Date
                     </x-table.heading>
                     <x-table.heading></x-table.heading>
                 </x-slot>
