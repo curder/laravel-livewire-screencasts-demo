@@ -13,8 +13,14 @@
                 </div>
             </div>
 
-            <div>
-
+            <div class="space-x-2 flex items-center">
+                <x-input.group borderless paddingless for="perPage" label="Per Page">
+                    <x-input.select wire:model="perPage" id="perPage">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                    </x-input.select>
+                </x-input.group>
                 <x-dropdown label="Bulk Actions">
                     <x-dropdown.item type="button" wire:click="exportSelected" class="flex items-center space-x-2">
                         <x-icon.download class="text-cool-gray-400"></x-icon.download>
@@ -41,7 +47,6 @@
                         <x-input.group inline for="filter-status" label="Status">
                             <x-input.select wire:model="filters.status" id="filter-status">
                                 <option value="" disabled>Select Status...</option>
-
                                 @foreach (App\Models\Transaction::STATUSES as $value => $label)
                                     <option value="{{ $value }}">{{ $label }}</option>
                                 @endforeach

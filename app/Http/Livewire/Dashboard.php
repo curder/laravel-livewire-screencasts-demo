@@ -1,10 +1,10 @@
 <?php
 namespace App\Http\Livewire;
 
+use App\Http\Livewire\DataTable\WithPerPagePagination;
 use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Transaction;
-use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
 use App\Http\Livewire\DataTable\WithSorting;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,7 +21,7 @@ use App\Http\Livewire\DataTable\WithBulkActions;
  */
 class Dashboard extends Component
 {
-    use WithPagination, WithSorting, WithBulkActions;
+    use WithPerPagePagination, WithSorting, WithBulkActions;
 
     public bool $showEditModal = false;
     public Transaction $editing;
@@ -129,10 +129,12 @@ class Dashboard extends Component
 
             return $this->applySorting($query);
     }
+
     public function getRowsProperty()
     {
-        return $this->rowsQuery->paginate(10);
+        return $this->applyPagination($this->rowsQuery);
     }
+
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
