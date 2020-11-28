@@ -6,24 +6,26 @@ trait WithBulkActions
     public bool $selectPage = false;
     public array $selected = [];
     public bool $selectAll = false;
-
-    public function initializeWithBulkActions()
+    public function initializeWithBulkActions() : void
     {
         //
     }
-
-    public function renderingWithBulkActions()
+    public function renderingWithBulkActions() : void
     {
-        if ($this->selectAll) $this->selectPageRows();
+        if ($this->selectAll) {
+            $this->selectPageRows();
+        }
     }
-
     public function updatedSelectPage($value) : void
     {
         if ($value) {
             $this->selectPageRows();
+            return ;
         }
+
+        $this->selected = [];
     }
-    public function selectPageRows()
+    public function selectPageRows() : void
     {
         $this->selected = $this->rows->pluck('id')->map(fn($id) => (string) $id)->toArray();
     }

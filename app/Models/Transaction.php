@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Transaction
+ *
  * @property string title
  * @property string status
  * @property string status_color
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string date_for_editing
  *
  * @package App\Models
+ * @method static make(array $array)
  */
 class Transaction extends Model
 {

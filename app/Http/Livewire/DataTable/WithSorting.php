@@ -5,7 +5,6 @@ trait WithSorting
 {
     public string $sortField = 'date';
     public string $sortDirection = 'desc';
-
     /**
      * @param  string  $field
      */

@@ -14,6 +14,8 @@ use App\Http\Livewire\DataTable\WithBulkActions;
  * Class Dashboard
  *
  * @property Collection transactions
+ * @property mixed rows
+ * @property mixed rowsQuery
  *
  * @package App\Http\Livewire
  */
@@ -33,6 +35,9 @@ class Dashboard extends Component
         'date-min' => '',
         'date-max' => '',
     ];
+    /**
+     * @var string[]
+     */
     protected $queryString = [
         'sortField', 'sortDirection'
     ];
@@ -83,7 +88,7 @@ class Dashboard extends Component
         $this->showEditModal = !$this->showEditModal;
     }
 
-    public function save()
+    public function save() : void
     {
         $this->validate();
         $this->editing->save();
@@ -100,7 +105,7 @@ class Dashboard extends Component
             echo $this->getSelectedRowsQuery()->toCsv();
         }, 'transactions.csv');
     }
-    public function deleteSelected()
+    public function deleteSelected() : void
     {
         $this->getSelectedRowsQuery()->delete();
 
@@ -135,8 +140,6 @@ class Dashboard extends Component
      */
     public function render()
     {
-
-
         return view('livewire.dashboard', [
             'transactions' => $this->rows,
         ]);
