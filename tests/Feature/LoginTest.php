@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Http\Livewire\Auth\Login;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Tests\TestCase;

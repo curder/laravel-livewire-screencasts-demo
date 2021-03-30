@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Builder;
 trait WithSorting
 {
     public array $sorts = [];
+
     /**
      * @param  string  $field
      */
     public function sortBy(string $field) : void
     {
-        if (!isset($this->sorts[ $field ])) {
+        if (! isset($this->sorts[ $field ])) {
             $this->sorts[ $field ] = 'asc';
 
             return;
@@ -23,6 +24,7 @@ trait WithSorting
         }
         unset($this->sorts[ $field ]);
     }
+
     public function applySorting(Builder $query) : Builder
     {
         foreach ($this->sorts as $field => $direction) {

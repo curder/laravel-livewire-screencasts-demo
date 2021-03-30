@@ -13,10 +13,12 @@ trait WithPerPagePagination
     {
         $this->perPage = session()->get('perPage', $this->perPage);
     }
+
     public function updatedPerPage($value) : void
     {
         session()->put('perPage', $value);
     }
+
     public function applyPagination($query)
     {
         return $query->paginate($this->perPage);

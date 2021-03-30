@@ -16,7 +16,7 @@ class Profile extends Component
         'user.name' => 'max:24',
         'user.about' => 'max:120',
         'user.birthday' => 'sometimes',
-        'upload'    => 'nullable|image|max:1000'
+        'upload' => 'nullable|image|max:1000',
     ];
 
     public function mount()
@@ -27,7 +27,7 @@ class Profile extends Component
     public function updatedUpload()
     {
         $this->validate([
-            'upload' => 'nullable|image|max:1000'
+            'upload' => 'nullable|image|max:1000',
         ]);
     }
 

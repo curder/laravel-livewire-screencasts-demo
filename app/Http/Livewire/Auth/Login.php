@@ -22,6 +22,7 @@ class Login extends Component
             ? redirect()->intended()
             : $this->addError('email', trans('auth.failed'));
     }
+
     public function render()
     {
         return view('livewire.auth.login')

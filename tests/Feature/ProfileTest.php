@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Http\Livewire\Profile;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
@@ -80,7 +79,6 @@ class ProfileTest extends TestCase
                 ->assertSet('user.about', 'bar');
     }
 
-
     /** @test */
     public function user_name_must_be_less_then_24_characters()
     {
@@ -131,6 +129,6 @@ class ProfileTest extends TestCase
                 ->set('user.about', 'bar')
                 ->call('save')
                 ->assertEmitted('notify-saved');
-                // ->assertDispatchedBrowserEvent('notify');
+        // ->assertDispatchedBrowserEvent('notify');
     }
 }

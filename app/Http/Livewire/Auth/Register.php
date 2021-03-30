@@ -25,14 +25,14 @@ class Register extends Component
         'name' => 'required|unique:users',
         'email' => 'required|email|unique:users',
         'password' => 'required|min:6|same:passwordConformation',
-        'passwordConformation' => 'required|min:6'
+        'passwordConformation' => 'required|min:6',
     ];
 
     public function updated($field)
     {
         $this->validate([
             'name' => 'unique:users',
-            'email' => 'unique:users'
+            'email' => 'unique:users',
         ]);
     }
 

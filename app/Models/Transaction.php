@@ -60,6 +60,7 @@ class Transaction extends Model
     {
         return optional($this->date)->format('Y-m-d');
     }
+
     /**
      * @param $value
      */

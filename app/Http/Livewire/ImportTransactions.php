@@ -3,9 +3,9 @@ namespace App\Http\Livewire;
 
 use App\Csv;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Validator;
 
 /**
  * @method notify(string $string)
@@ -74,14 +74,13 @@ class ImportTransactions extends Component
     {
         $attributes = collect($this->fieldColumnMap)
             ->filter()
-            ->mapWithKeys(function($heading, $field) use ($row) {
+            ->mapWithKeys(function ($heading, $field) use ($row) {
                 return [$field => $row[$heading]];
             })
             ->toArray();
 
         return $attributes + ['status' => 'success', 'date_for_editing' => now()];
     }
-
 
     public function guessWhichColumnsMapToWhichFields() : void
     {
@@ -93,10 +92,11 @@ class ImportTransactions extends Component
         ];
 
         foreach ($this->columns as $column) {
-            $match = collect($guesses)->search(fn($options) => in_array(strtolower($column), $options));
+            $match = collect($guesses)->search(fn ($options) => in_array(strtolower($column), $options));
 
-            if ($match) $this->fieldColumnMap[$match] = $column;
+            if ($match) {
+                $this->fieldColumnMap[$match] = $column;
+            }
         }
     }
-
 }

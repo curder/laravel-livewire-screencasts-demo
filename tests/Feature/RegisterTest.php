@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Http\Livewire\Auth\Register;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -54,7 +53,7 @@ class RegisterTest extends TestCase
         User::factory()->create([
             'name' => 'user-name',
             'email' => 'email@email.com',
-            'password' => 'secret'
+            'password' => 'secret',
         ]);
 
         Livewire::test(Register::class)
@@ -72,7 +71,7 @@ class RegisterTest extends TestCase
         User::factory()->create([
             'name' => 'user-name',
             'email' => 'email@email.com',
-            'password' => 'secret'
+            'password' => 'secret',
         ]);
 
         Livewire::test(Register::class)
@@ -105,13 +104,14 @@ class RegisterTest extends TestCase
                 ->call('register')
                 ->assertHasErrors(['email' => 'email']);
     }
+
     /** @test */
     public function email_is_unique()
     {
         User::factory()->create([
             'name' => 'user-name',
             'email' => 'email@email.com',
-            'password' => 'secret'
+            'password' => 'secret',
         ]);
 
         Livewire::test(Register::class)
@@ -129,7 +129,7 @@ class RegisterTest extends TestCase
         User::factory()->create([
             'name' => 'user-name',
             'email' => 'email@email.com',
-            'password' => 'secret'
+            'password' => 'secret',
         ]);
 
         Livewire::test(Register::class)
